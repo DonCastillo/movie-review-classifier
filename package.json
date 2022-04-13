@@ -4,7 +4,8 @@
   "description": "A machine learning application that lets it guess the classification of a moview review whether positive or negative.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "author": "Don Castillo",
   "license": "ISC",
@@ -13,5 +14,8 @@
     "express": "^4.17.3",
     "jsdom": "^19.0.0",
     "mongoose": "^6.2.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
