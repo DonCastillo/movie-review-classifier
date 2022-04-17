@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const PORT = 3000
-const train = require('./src/train');
+const seed = require('./src/seed');
 
 console.log('starting the server .....')
 // console.log(app)
@@ -20,6 +20,7 @@ app.get('/train', function(req, res) {
 
 app.get('/seed', function(req, res) {
     console.log('Seeding files ...')
+    seed();
     res.send('Done seeding')
 })
 
