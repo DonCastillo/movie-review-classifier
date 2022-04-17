@@ -11,4 +11,4 @@ const trainReviewSchema = new Schema({
     word_count: Number
 })
 
-modeule.exports = mongoose.model('TestReview', trainReviewSchema)
+module.exports = mongoose.model('TestReview', trainReviewSchema)

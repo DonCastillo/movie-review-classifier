@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const DATA_DIR = path.join(__dirname, '../../data/train/')
+const TrainReview = require('../../schema/train-review')
+
+
 
 class Seeder {
 
@@ -10,11 +12,10 @@ class Seeder {
         this.filePath = filePath;
     }
 
-    run() {
-        let filenames = fs.readdirSync(DATA_DIR)
-        return filenames
 
-        // return DATA_DIR
+
+    run() {
+        return 'Hello' + this.filePath
     }
 }
 

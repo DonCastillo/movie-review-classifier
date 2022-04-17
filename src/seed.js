@@ -2,11 +2,13 @@ const Seeder = require('./models/Seeder');
 const fs = require('fs')
 const path = require('path')
 
-const TRAIN_POS_DIR = path.join(__dirname, './../data/train/pos')
-const TRAIN_NEG_DIR = path.join(__dirname, './../data/train/neg')
+const POS_PATH = './../data/train/pos'
+const NEG_PATH = './../data/train/neg'
+const TRAIN_POS_DIR = path.join(__dirname, POS_PATH)
+const TRAIN_NEG_DIR = path.join(__dirname, NEG_PATH)
 
 
-function seed() {
+async function seed() {
     console.log('start seed')
 
     console.log(TRAIN_POS_DIR)
@@ -14,8 +16,17 @@ function seed() {
     const posFiles = fs.readdirSync(TRAIN_POS_DIR)
     const negFiles = fs.readdirSync(TRAIN_NEG_DIR)
 
-    console.log(posFiles)
-    console.log(negFiles)
+    await posFiles.forEach(file => {
+        const filePath = path.join(__dirname, `${POS_PATH}/${file}`)
+        const Seed = new Seeder(filePath);
+        console.log(Seed.run())
+
+
+        
+    });
+
+    // console.log(posFiles)
+    // console.log(negFiles)
 
     console.log('final seed')
 }

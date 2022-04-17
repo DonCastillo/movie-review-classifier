@@ -1,10 +1,21 @@
 const express = require('express')
+const mongoose = require('mongoose')
+const seed = require('./src/seed')
 const app = express()
+
 const PORT = 3000
-const seed = require('./src/seed');
 
 console.log('starting the server .....')
-// console.log(app)
+
+
+
+// connect to database
+mongoose.connect('mongodb://localhost:27017/movie_reviews')
+    .then(() => console.log('Connection open'))
+    .catch(err => {
+        console.log('Connection error')
+        console.log(err)
+    })
 
 
 app.get('/', function(req, res) {
@@ -18,9 +29,9 @@ app.get('/train', function(req, res) {
     res.send('<h1>Training</h1>');
 })
 
-app.get('/seed', function(req, res) {
+app.get('/seed', async function(req, res) {
     console.log('Seeding files ...')
-    seed();
+    await seed();
     res.send('Done seeding')
 })
 
