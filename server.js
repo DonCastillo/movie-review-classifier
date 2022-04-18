@@ -30,9 +30,15 @@ app.get('/train', function(req, res) {
 })
 
 app.get('/seed', async function(req, res) {
-    console.log('Seeding files ...')
-    await seed();
-    res.send('Done seeding')
+    try {
+        console.log('Seeding files ...')
+        await seed();
+        res.send('Done seeding')
+    } catch (e) {
+        console.log('Seeding error')
+        console.log(e)
+        res.send('Seeding error')
+    }
 })
 
 

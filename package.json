@@ -13,7 +13,10 @@
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "jsdom": "^19.0.0",
-    "mongoose": "^6.2.10"
+    "mongoose": "^6.2.10",
+    "porter-stemmer": "^0.9.1",
+    "stemmer": "^2.0.0",
+    "stopword": "^2.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
