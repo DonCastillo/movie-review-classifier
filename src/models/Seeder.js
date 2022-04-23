@@ -8,15 +8,17 @@ const {tokenizer, vocabulary, frequency} = require('./../functions')
 class Seeder {
 
     filePath = ''
+    classification = 0
 
-    constructor(filePath) {
-        this.filePath = filePath;
+    constructor(filePath, classification) {
+        this.filePath = filePath
+        this.classification = classification
     }
 
-    readFile() {
+    save() {
         console.log(`reading from the file ${this.filePath}`)
         const readStream = fs.createReadStream(this.filePath, 'utf8')
-        // console.log(readStream)
+
         readStream.on('data', async chunk => {
             const raw = chunk
             const tokenized = tokenizer(chunk)
@@ -24,6 +26,7 @@ class Seeder {
             const wordCount = frequency(vocabularized, tokenized)
 
             const train = new Train({
+                class: this.classification ? 'pos' : 'neg',
                 raw: raw,
                 tokenized: tokenized,
                 vocabulary: vocabularized,
@@ -34,16 +37,6 @@ class Seeder {
             readStream.destroy()
         })
         
-    }
-
-    save() {
-
-    }
-
-
-
-    run() {
-        return 'Hello' + this.filePath
     }
 }
 
