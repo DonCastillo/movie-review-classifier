@@ -9,4 +9,4 @@ const trainSchema = new Schema({
     word_freq: Object
 })
 
-module.exports = mongoose.model('Train', trainSchema)
+module.exports = mongoose.model('train', trainSchema)

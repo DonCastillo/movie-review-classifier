@@ -7,7 +7,9 @@ function tokenizer(string) {
         string.toLowerCase()
               .replace(/[^\w\d]/g, ' ')
               .split(' ')
-              .filter(word => word.length > 3)
+              .filter(word => {
+                  return !Number(word) && word.length > 3
+                })
 
     tokenizedString = removeStopwords(tokenizedString)
     tokenizedString = tokenizedString.map(word => stemmer(word))

@@ -6,4 +6,4 @@ const testSchema = new Schema({
     sentiment: Boolean 
 })
 
-modeule.exports = mongoose.model('Test', testSchema)
+module.exports = mongoose.model('test', testSchema)

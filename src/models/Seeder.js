@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const Train = require('../../schema/train')
+const train = require('../../schema/train')
 const {tokenizer, vocabulary, frequency} = require('./../functions')
 
 
@@ -25,15 +25,13 @@ class Seeder {
             const vocabularized = vocabulary(tokenized)
             const wordCount = frequency(vocabularized, tokenized)
 
-            const train = new Train({
+            train.create({
                 class: this.classification ? 'pos' : 'neg',
                 raw: raw,
                 tokenized: tokenized,
                 vocabulary: vocabularized,
                 word_freq: wordCount
             })
-
-            train.save()
             readStream.destroy()
         })
         
