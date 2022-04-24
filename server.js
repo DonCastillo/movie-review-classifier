@@ -12,7 +12,7 @@ const PORT = 3000
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
-
+app.use(express.json())
 
 console.log('starting the server .....')
 
@@ -36,8 +36,16 @@ app.get('/train', async function(req, res) {
     res.send('<h1>Training</h1>');
 })
 
-app.get('/test', async function(req, res) {
-    
+app.post('/test', async function(req, res) {
+    console.log('testing a review')
+    try {
+        const {title, review} = req.body
+        await NaiveBayes.test(title, review)
+        res.status(200).send({response: 'ok'})
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({response: 'error'})
+    }  
 })
 
 app.get('/seed/train', async function(req, res) {

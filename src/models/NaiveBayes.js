@@ -75,9 +75,10 @@ class NaiveBayes
         })
     }
 
-    static async test()
+    static async test(title, review)
     {
-        
+        console.log('Testing files in NaiveBayes.test()...')
+        console.log(title, review)
     }
 }
 

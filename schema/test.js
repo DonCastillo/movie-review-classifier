@@ -3,7 +3,8 @@ const {Schema} = mongoose
 
 const testSchema = new Schema({
     raw: String,
-    sentiment: Boolean 
+    tokenized: String,
+    predicted_class: String 
 })
 
 module.exports = mongoose.model('test', testSchema)
