@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const seedTrain = require('./src/seeders/train')
 const seedCategory = require('./src/seeders/category')
 const seedCorpus = require('./src/seeders/corpus')
+const NaiveBayes = require('./src/models/NaiveBayes')
 const app = express()
 
 const PORT = 3000
@@ -25,11 +26,10 @@ app.get('/', function(req, res) {
     res.send(`<h1>Index here</h1>`)
 })
 
-// app.get('/train', function(req, res) {
-//     console.log('Training files ...')
-//     train()
-//     res.send('<h1>Training</h1>');
-// })
+app.get('/train', async function(req, res) {
+    await NaiveBayes.train()
+    res.send('<h1>Training</h1>');
+})
 
 app.get('/seed/train', async function(req, res) {
     try {
