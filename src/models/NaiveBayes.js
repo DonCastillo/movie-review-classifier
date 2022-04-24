@@ -73,11 +73,11 @@ class NaiveBayes
             }
             await categoryDB.findOneAndUpdate(condition, update)
         })
+    }
 
-
-
-
-
+    static async test()
+    {
+        
     }
 }
 

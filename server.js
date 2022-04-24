@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const path = require('path')
 const seedTrain = require('./src/seeders/train')
 const seedCategory = require('./src/seeders/category')
 const seedCorpus = require('./src/seeders/corpus')
@@ -7,6 +8,11 @@ const NaiveBayes = require('./src/models/NaiveBayes')
 const app = express()
 
 const PORT = 3000
+
+
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'))
+
 
 console.log('starting the server .....')
 
@@ -22,13 +28,16 @@ mongoose.connect('mongodb://localhost:27017/movie_reviews')
 
 
 app.get('/', function(req, res) {
-    console.log('Index here')
-    res.send(`<h1>Index here</h1>`)
+    res.render('home');
 })
 
 app.get('/train', async function(req, res) {
     await NaiveBayes.train()
     res.send('<h1>Training</h1>');
+})
+
+app.get('/test', async function(req, res) {
+    
 })
 
 app.get('/seed/train', async function(req, res) {
