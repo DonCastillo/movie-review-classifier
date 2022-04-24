@@ -46,16 +46,6 @@ class NaiveBayes
         const C = await retrieveCategories()
         const Ndoc = await corpusDocCount()
 
-        
-        // let corpusVocSample = ['dog', 'cat', 'mouse', 'bird']
-        // let classWordFreqSample = {'dog': 1, 'mouse': 5}
-
-        // console.log('===== summation cat corpus ==========')
-        // let x = await summationCategoryCorpus(corpusVocSample, classWordFreqSample)
-        // console.log(x)
-        // console.log('===== summation cat corpus ==========')
-
-
         C.forEach(async c => {
             let classProb = {}
             let Nc = c.doc_count
