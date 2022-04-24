@@ -23,26 +23,22 @@ app.get('/', function(req, res) {
     res.send(`<h1>Index here</h1>`)
 })
 
-app.get('/train', function(req, res) {
-    console.log('Training files ...')
-    train()
-    res.send('<h1>Training</h1>');
-})
+// app.get('/train', function(req, res) {
+//     console.log('Training files ...')
+//     train()
+//     res.send('<h1>Training</h1>');
+// })
 
-app.get('/seed-train', async function(req, res) {
+app.get('/seed/train', async function(req, res) {
     try {
-        console.log('Seeding files ...')
         await seedTrain();
         res.send('Done seeding')
     } catch (e) {
-        console.log('Seeding error')
         console.log(e)
         res.send('Seeding error')
     }
 })
 
-
-app.get('/')
 
 
 app.listen(PORT, function() {

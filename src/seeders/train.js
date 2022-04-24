@@ -6,8 +6,8 @@ const testDB = require('../../schema/test')
 
 const Seeder = require('../models/Seeder')
 
-const POS_PATH = './../datasets/train/pos'
-const NEG_PATH = './../datasets/train/neg'
+const POS_PATH = './../../datasets/train/pos'
+const NEG_PATH = './../../datasets/train/neg'
 const FILE_LIMIT = 2500
 
 
