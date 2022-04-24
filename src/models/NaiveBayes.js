@@ -1,5 +1,6 @@
 const categoryDB = require('./../../schema/category')
 const corpusDB = require('./../../schema/corpus')
+const {tokenizer} = require('./../functions')
 
 
 
@@ -78,7 +79,40 @@ class NaiveBayes
     static async test(title, review)
     {
         console.log('Testing files in NaiveBayes.test()...')
-        console.log(title, review)
+        const V = await corpusVoc()
+        const C = await retrieveCategories()
+
+        const rawReview = review
+        const tokenizedReview = tokenizer(review).split(' ')
+
+        let classValues = []
+
+        C.forEach(async c => {
+
+            let value = c.log_prior
+
+            tokenizedReview.forEach(w => {
+                if ( V.includes(w) ) {
+                    value = value + c.log_likelihood[w]
+                }
+            })
+
+            classValues.push({ class: c.class, value: value.toFixed(5) })
+        })
+
+
+        let maxClass = classValues.reduce((prev, current) => {       
+            if (Number.parseFloat(prev.value)) {
+                return Number.parseFloat(prev.value) <= Number.parseFloat(current.value) ? 
+                        current : prev
+            }
+        }, classValues[0])
+
+
+        console.log(classValues)
+        console.log(`this movie is ${maxClass.class}`)
+
+
     }
 }
 
