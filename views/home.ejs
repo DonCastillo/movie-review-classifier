@@ -27,9 +27,18 @@
             }
             #review-list {
                 overflow-y:auto;
-                height:100%;
-                max-height:500px;
                 width:100%;
+                min-height: 342px;
+                max-height: 500px;
+            }
+            textarea {
+                resize: none;
+                min-height: 220px !important;
+                width:100%;
+            }
+            .form-control {
+                line-height: inherit;
+                font-size: inherit;
             }
         </style>
     </head>
@@ -40,17 +49,17 @@
         <div id="wrapper" class="d-flex justify-content-center align-items-center">
             <div id="app" class="container px-3">
                 <div class="row">
-                    <div class="col-12 col-md-6 py-3">
+                    <div class="col-12 col-md-6 py-3 bg-warning">
                         <h2>Movie Review Classifier</h2>
                         <form action="">
                             <input type="text" name="title" class="form-control mt-4" placeholder="Enter movie title">
-                            <textarea name="review" id="" cols="10" rows="5" class="form-control mt-4" placeholder="Write your review"></textarea>
+                            <textarea name="review" id="" class="form-control mt-4" placeholder="Write your review"></textarea>
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn btn-success form-control w-auto float-end mt-4">POST</button>
                             </div>
                         </form>
                     </div>
-                    <div class="col-12 col-md-6 py-3">
+                    <div class="col-12 col-md-6 py-3 bg-primary">
                         <div id="review-list" class="bg-light p-2">
                             Review list here...
                         </div>
