@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const seedTrain = require('./src/seeders/train')
+const seedCategory = require('./src/seeders/category')
+const seedCorpus = require('./src/seeders/corpus')
 const app = express()
 
 const PORT = 3000
@@ -39,6 +41,26 @@ app.get('/seed/train', async function(req, res) {
     }
 })
 
+app.get('/seed/category', async function(req, res) {
+    try {
+        await seedCategory();
+        res.send('Done seeding')
+    } catch (e) {
+        console.log(e)
+        res.send('Seeding error')
+    }
+})
+
+
+app.get('/seed/corpus', async function(req, res) {
+    try {
+        await seedCorpus();
+        res.send('Done seeding')
+    } catch (e) {
+        console.log(e)
+        res.send('Seeding error')
+    }
+})
 
 
 app.listen(PORT, function() {

@@ -6,8 +6,8 @@ const Corpus = require('../models/Corpus')
 async function seedCorpus() {
     await corpusDB.deleteMany({})
 
-    const posCat = await categoryDB.find({ class: 'pos' })
-    const negCat = await categoryDB.find({ class: 'neg' })
+    const posCat = await categoryDB.findOne({ class: 'pos' })
+    const negCat = await categoryDB.findOne({ class: 'neg' })
 
     // gather corpus details
     const corpus = new Corpus()
