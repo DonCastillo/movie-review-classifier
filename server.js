@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const seed = require('./src/seed')
+const seedTrain = require('./src/seed-train')
 const app = express()
 
 const PORT = 3000
@@ -29,10 +29,10 @@ app.get('/train', function(req, res) {
     res.send('<h1>Training</h1>');
 })
 
-app.get('/seed', async function(req, res) {
+app.get('/seed-train', async function(req, res) {
     try {
         console.log('Seeding files ...')
-        await seed();
+        await seedTrain();
         res.send('Done seeding')
     } catch (e) {
         console.log('Seeding error')
@@ -40,6 +40,9 @@ app.get('/seed', async function(req, res) {
         res.send('Seeding error')
     }
 })
+
+
+app.get('/')
 
 
 app.listen(PORT, function() {
