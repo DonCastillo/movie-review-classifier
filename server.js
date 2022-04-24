@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const seedTrain = require('./src/seed-train')
+const seedTrain = require('./src/seeders/train')
 const app = express()
 
 const PORT = 3000

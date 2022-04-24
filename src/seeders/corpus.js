@@ -1,7 +1,7 @@
-const categoryDB = require('../schema/category')
-const corpusDB = require('../schema/corpus')
+const categoryDB = require('../../schema/category')
+const corpusDB = require('../../schema/corpus')
 
-const Corpus = require('./models/Corpus')
+const Corpus = require('../models/Corpus')
 
 async function seedCorpus() {
     await corpusDB.deleteMany({})

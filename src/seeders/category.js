@@ -1,7 +1,7 @@
-const categoryDB = require('../schema/category')
-const trainDB = require('../schema/train')
+const categoryDB = require('../../schema/category')
+const trainDB = require('../../schema/train')
 
-const Category = require('./models/Category')
+const Category = require('../models/Category')
 
 
 async function seedCategory() {

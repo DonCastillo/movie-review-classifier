@@ -1,10 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 
-const trainDB = require('../schema/train')
-const testDB = require('../schema/test')
+const trainDB = require('../../schema/train')
+const testDB = require('../../schema/test')
 
-const Seeder = require('./models/Seeder')
+const Seeder = require('../models/Seeder')
 
 const POS_PATH = './../datasets/train/pos'
 const NEG_PATH = './../datasets/train/neg'
