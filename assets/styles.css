@@ -1,6 +1,6 @@
 #wrapper {
     min-height:100vh;
-    min-width:100vw;
+    /* min-width:100vw; */
 }
 #app, #review {
     max-width:1020px;
@@ -11,6 +11,7 @@
 }
 #review {
     max-width:730px;
+    margin:15px 0;
 }
 #review-list {
     overflow-y:auto;
