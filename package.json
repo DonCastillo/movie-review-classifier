@@ -17,7 +17,8 @@
     "mongoose": "^6.2.10",
     "porter-stemmer": "^0.9.1",
     "stemmer": "^2.0.0",
-    "stopword": "^2.0.2"
+    "stopword": "^2.0.2",
+    "truncate": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

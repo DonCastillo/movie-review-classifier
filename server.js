@@ -5,6 +5,7 @@ const seedTrain = require('./src/seeders/train')
 const seedCategory = require('./src/seeders/category')
 const seedCorpus = require('./src/seeders/corpus')
 const NaiveBayes = require('./src/models/NaiveBayes')
+const testDB = require('./schema/test')
 const app = express()
 
 const PORT = 3000
@@ -36,16 +37,26 @@ app.get('/train', async function(req, res) {
     res.send('<h1>Training</h1>');
 })
 
-app.post('/test', async function(req, res) {
-    console.log('testing a review')
+app.post('/test', async function(req, res) 
+{
     try {
         const {title, review} = req.body
         await NaiveBayes.test(title, review)
-        res.status(200).send({response: 'ok'})
+        res.status(200).send({response: 'ok', data: {}})
     } catch (error) {
         console.error(error.message)
-        res.status(500).send({response: 'error'})
+        res.status(500).send({response: 'error', error: error.message})
     }  
+})
+
+app.get('/reviews', async function(req, res) {
+    try {
+        const allReviews = await testDB.find({}).sort('-timestamp')
+        res.status(200).send({response: 'ok', data: allReviews})
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({response: 'error', error: error.message})
+    }
 })
 
 app.get('/seed/train', async function(req, res) {

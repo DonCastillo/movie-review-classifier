@@ -1,5 +1,7 @@
+const truncate = require('truncate')
 const categoryDB = require('./../../schema/category')
 const corpusDB = require('./../../schema/corpus')
+const testDB = require('./../../schema/test')
 const {tokenizer} = require('./../functions')
 
 
@@ -83,7 +85,7 @@ class NaiveBayes
         const C = await retrieveCategories()
 
         const rawReview = review
-        const tokenizedReview = tokenizer(review).split(' ')
+        const tokenizedReview = tokenizer(review)
 
         let classValues = []
 
@@ -91,7 +93,7 @@ class NaiveBayes
 
             let value = c.log_prior
 
-            tokenizedReview.forEach(w => {
+            tokenizedReview.split(' ').forEach(w => {
                 if ( V.includes(w) ) {
                     value = value + c.log_likelihood[w]
                 }
@@ -109,10 +111,15 @@ class NaiveBayes
         }, classValues[0])
 
 
-        console.log(classValues)
-        console.log(`this movie is ${maxClass.class}`)
-
-
+        await testDB.create({
+            title: title,
+            raw: rawReview,
+            truncated: truncate(rawReview, 80),
+            tokenized: tokenizedReview,
+            predicted_class: maxClass.class,
+            values: classValues,
+            timestamp: new Date()
+        })
     }
 }
 
