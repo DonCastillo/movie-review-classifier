@@ -5,46 +5,7 @@
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
-              integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
-              crossorigin="anonymous" 
-              referrerpolicy="no-referrer" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
-              rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <style>
-            #wrapper {
-                height:100vh;
-                width:100vw;
-            }
-            #app {
-                max-width:1020px;
-                width:100%;
-                font-family: Consolas, sans-serif;
-                font-size: 14px;
-                line-height: 1.2rem;
-            }
-            #review-list {
-                overflow-y:auto;
-                width:100%;
-                min-height: 387px;
-                max-height: 500px;
-            }
-            textarea {
-                resize: none;
-                min-height: 220px !important;
-                width:100%;
-            }
-            .form-control {
-                line-height: inherit;
-                font-size: inherit;
-            }
-        </style>
+        <%- include('./partials/head.ejs') %> 
     </head>
     <body class="position-relative">
         <!--[if lt IE 7]>
@@ -73,81 +34,6 @@
                 </div>
             </div>
         </div>
-        
-        
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" 
-                integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" 
-                crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" 
-                integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" 
-                crossorigin="anonymous">
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-                crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script type="module">
-
-
-            function reviewCard(title, truncatedReview, predictedClass) {
-                let outlineColor = predictedClass == 'neg' ? 'border-danger' : 'border-success'
-                let bgColor =  predictedClass == 'neg' ? 'bg-danger' : 'bg-success'
-                return `
-                    <div class="p-2 border border-1 ${outlineColor} my-2">
-                        <strong>
-                            ${title} 
-                        </strong>
-                        <div>
-                            ${truncatedReview}
-                            <span class="badge ${bgColor} p-1 ms-2 text-white">${predictedClass.toUpperCase()}</span>
-                        </div>
-                    </div>`
-            }
-
-
-            async function loadReviews() {
-                const reviewListEl = $('#review-list')
-                await axios.get('/reviews')
-                        .then(function(response){
-                            const reviews = response.data.data
-                            let html = '';
-                            if (reviews.length > 0) {
-                                reviews.forEach(review => {
-                                    html += reviewCard(review.title, review.truncated, review.predicted_class)
-                                })
-                            } else {
-                                html = 'List of reviews here ...'
-                            }
-                            reviewListEl.html(html)
-                        })
-                        .catch(function(error){
-                            console.error(error.message)
-                            reviewListEl.html('Cannot load reviews')
-                        })
-            }
-
-
-
-
-            $(document).ready(async function(){
-                
-                await loadReviews()
-
-                $('form').on('submit', async function(event){
-                    event.preventDefault();
-                    let formData = new FormData(event.target)
-                    formData = new URLSearchParams(formData)
-                    formData = Object.fromEntries(formData)
-                    
-                    await axios.post('/test', formData)
-                    await loadReviews()
-                            
-                })
-            })
-
-        </script>
-
+        <%- include('./partials/script.ejs')  %> 
     </body>
 </html>

@@ -13,6 +13,7 @@ const PORT = 3000
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
+app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.json())
 
 console.log('starting the server .....')
@@ -32,13 +33,14 @@ app.get('/', function(req, res) {
     res.render('home');
 })
 
+
 app.get('/train', async function(req, res) {
     await NaiveBayes.train()
     res.send('<h1>Training</h1>');
 })
 
-app.post('/test', async function(req, res) 
-{
+
+app.post('/reviews', async function(req, res) {
     try {
         const {title, review} = req.body
         await NaiveBayes.test(title, review)
@@ -48,6 +50,19 @@ app.post('/test', async function(req, res)
         res.status(500).send({response: 'error', error: error.message})
     }  
 })
+
+
+app.delete('/reviews', async function(req, res) {
+    console.log('deleting a review')
+    try {
+        await testDB.deleteMany({})
+        res.status(200).send({response: 'ok', data: {}})
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({response: 'error', error: error.message})
+    }
+})
+
 
 app.get('/reviews', async function(req, res) {
     try {
@@ -59,6 +74,19 @@ app.get('/reviews', async function(req, res) {
     }
 })
 
+
+app.get('/reviews/:id', async function(req, res) {
+    try {
+        const {id} = req.params
+        const review = await testDB.findById(id)
+        res.render('review', {review})
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({response: 'error', error: error.message})
+    }
+})
+
+
 app.get('/seed/train', async function(req, res) {
     try {
         await seedTrain();
@@ -68,6 +96,7 @@ app.get('/seed/train', async function(req, res) {
         res.send('Seeding error')
     }
 })
+
 
 app.get('/seed/category', async function(req, res) {
     try {
