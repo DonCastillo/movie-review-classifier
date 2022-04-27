@@ -15,7 +15,7 @@ class Seeder {
         this.classification = classification
     }
 
-    save() {
+    async save() {
         console.log(`reading from the file ${this.filePath}`)
         const readStream = fs.createReadStream(this.filePath, 'utf8')
 
@@ -25,7 +25,7 @@ class Seeder {
             const vocabularized = vocabulary(tokenized)
             const wordCount = frequency(vocabularized, tokenized)
 
-            train.create({
+            await train.create({
                 class: this.classification ? 'pos' : 'neg',
                 raw: raw,
                 tokenized: tokenized,

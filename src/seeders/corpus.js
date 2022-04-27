@@ -4,16 +4,26 @@ const corpusDB = require('../../schema/corpus')
 const Corpus = require('../models/Corpus')
 
 async function seedCorpus() {
-    await corpusDB.deleteMany({})
+    return new Promise(async (resolve, reject) => {
+        try {
 
-    const posCat = await categoryDB.findOne({ class: 'pos' })
-    const negCat = await categoryDB.findOne({ class: 'neg' })
+            await corpusDB.deleteMany({})
 
-    // gather corpus details
-    const corpus = new Corpus()
-    corpus.addCategory(posCat)
-    corpus.addCategory(negCat)
-    await corpus.save()
+            const posCat = await categoryDB.findOne({ class: 'pos' })
+            const negCat = await categoryDB.findOne({ class: 'neg' })
+        
+            // gather corpus details
+            const corpus = new Corpus()
+            corpus.addCategory(posCat)
+            corpus.addCategory(negCat)
+            await corpus.save()
+            resolve()
+
+        } catch (e) {
+            reject(e)
+        }
+    })
+
 }
 
-module.exports = seedCorpus;
+module.exports = seedCorpus

@@ -31,8 +31,8 @@ class Category {
     }
 
 
-    save() {
-        return category.create({
+    async save() {
+        return await category.create({
             class: this.className,
             word_freq: this.wordFreq(),
             doc_count: this.docCount()

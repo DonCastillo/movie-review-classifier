@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <%- include('./partials/head.ejs') %> 
+    </head>
+    <body class="position-relative">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="wrapper" class="d-flex justify-content-center align-items-center">
+            <div id="seed" class="container row px-3 position-relative border border-1 d-flex justify-content-center align-items-center flex-column">
+                <!--<a href="/" class="btn btn-secondary mt-3 form-control w-auto">BACK</a>-->
+                <button id="importButton" class="btn btn-success form-control mb-4 w-auto" 
+                        onclick="importTrainingFiles()">
+                    Import Files
+                </button>
+
+                <button id="categoryButton" class="btn btn-success form-control mb-4 w-auto d-none" 
+                        onclick="importTrainingFiles()">
+                    Evaluate Category Data
+                </button>
+
+                <button id="corpusButton" class="btn btn-success form-control mb-4 w-auto d-none" 
+                        onclick="importTrainingFiles()">
+                    Evaluate Corpus
+                </button>
+
+                <button id="trainButton" class="btn btn-success form-control mb-4 w-auto d-none" 
+                        onclick="importTrainingFiles()">
+                    Train Data
+                </button>
+                
+                <div class="position-absolute start-0 bottom-0 p-3 d-flex justify-content-center align-items-center">
+                    <div id="spinner" class="d-none">
+                        <div class="spinner-border text-dark" role="status"></div>
+                    </div>
+                    <div id="message" class="ms-3"></div>
+                </div>
+            </div>
+        </div>
+        <%- include('./partials/script.ejs')  %> 
+    </body>
+</html>

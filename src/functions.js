@@ -20,7 +20,6 @@ function tokenizer(string) {
 
 
 function vocabulary(string) {
-    console.log('inside vocabulary')
     let vocabulary = string.split(' ')
     vocabulary = new Set(vocabulary)
 

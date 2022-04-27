@@ -39,9 +39,9 @@ class Corpus {
     }
 
 
-    save() {
+    async save() {
         // console.log(this.categories)
-        return corpus.create({
+        return await corpus.create({
             doc_count: this.docCount(),
             word_freq: this.wordFreq()
         })

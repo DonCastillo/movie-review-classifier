@@ -12,17 +12,17 @@ const FILE_LIMIT = 2500
 
 
 
-function importFiles(classPath, classfication) {
+async function importFiles(classPath, classfication) {
     const directoryPath = path.join(__dirname, classPath)
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             const files = fs.readdirSync(directoryPath)
-            files.forEach((file, index) => {
+            files.forEach(async (file, index) => {
                 if(index < FILE_LIMIT) {
                     const filePath = path.join(__dirname, `${classPath}/${file}`)
                     const Seed = new Seeder(filePath, classfication);
-                    Seed.save()
+                    await Seed.save()
                 }
             });
             resolve() 
@@ -34,14 +34,21 @@ function importFiles(classPath, classfication) {
 
 
 async function seedTrain() {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // delete all existing files
+            await trainDB.deleteMany({})
+            await testDB.deleteMany({})
 
-    // delete all existing files
-    await trainDB.deleteMany({})
-    await testDB.deleteMany({})
-
-    // import training files
-    await importFiles(POS_PATH, 1)
-    await importFiles(NEG_PATH, 0)
+            // import training files
+            await importFiles(POS_PATH, 1)
+            await importFiles(NEG_PATH, 0)
+            resolve()
+        } catch (e) {
+            reject(e)
+        }
+    })
+    
 }
 
 

@@ -2,12 +2,17 @@
     min-height:100vh;
     /* min-width:100vw; */
 }
-#app, #review {
+#app, #review, #message {
     max-width:1020px;
     width:100%;
     font-family: Consolas, sans-serif;
     font-size: 14px;
     line-height: 1.2rem;
+}
+#seed {
+    max-width: 500px;
+    height: 500px;
+    width: 100%;
 }
 #review {
     max-width:730px;

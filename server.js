@@ -35,8 +35,13 @@ app.get('/', function(req, res) {
 
 
 app.get('/train', async function(req, res) {
-    await NaiveBayes.train()
-    res.send('<h1>Training</h1>');
+    try {
+        await NaiveBayes.train()
+        res.status(200).send({response: 'Training the corpus', data: {}})
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({response: 'Failed to train the corpus', error: error.message})
+    } 
 })
 
 
@@ -53,7 +58,6 @@ app.post('/reviews', async function(req, res) {
 
 
 app.delete('/reviews', async function(req, res) {
-    console.log('deleting a review')
     try {
         await testDB.deleteMany({})
         res.status(200).send({response: 'ok', data: {}})
@@ -90,10 +94,10 @@ app.get('/reviews/:id', async function(req, res) {
 app.get('/seed/train', async function(req, res) {
     try {
         await seedTrain();
-        res.send('Done seeding')
-    } catch (e) {
-        console.log(e)
-        res.send('Seeding error')
+        res.status(200).send({response: 'Done importing files', data: {}})
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({response: 'Failed to import files', error: error.message})
     }
 })
 
@@ -101,10 +105,10 @@ app.get('/seed/train', async function(req, res) {
 app.get('/seed/category', async function(req, res) {
     try {
         await seedCategory();
-        res.send('Done seeding')
-    } catch (e) {
-        console.log(e)
-        res.send('Seeding error')
+        res.status(200).send({response: 'Done evaluating categories', data: {}})
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({response: 'Failed to evaluate categories', error: error.message})
     }
 })
 
@@ -112,9 +116,18 @@ app.get('/seed/category', async function(req, res) {
 app.get('/seed/corpus', async function(req, res) {
     try {
         await seedCorpus();
-        res.send('Done seeding')
-    } catch (e) {
-        console.log(e)
+        res.status(200).send({response: 'Done evaluating corpus', data: {}})
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({response: 'Failed to evaluate corpus', error: error.message})
+    }
+})
+
+app.get('/seed/', async function(req, res) {
+    try {
+        res.render('seed')
+    } catch (error) {
+        console.error(error.message)
         res.send('Seeding error')
     }
 })
